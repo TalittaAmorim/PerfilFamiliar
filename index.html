@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Familiar</title>
+    <link rel="stylesheet" href="CSS/main.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Menu</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>PERFIL FAMILIAR</h1>
+        <div id="profile-section">
+            <!-- Section where profiles will appear -->
+            <div id="profiles-container"></div>
+
+            <!-- Add profile button -->
+            <button id="add-profile-btn">
+                <img src="assets/R.png" alt="Adicionar Perfil" />
+            </button>
+        </div>
+    </main>
+
+    <!-- Modal para adicionar perfil -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adicionar Perfil</h2>
+            <form id="profile-form">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" required>
+                <label for="senha">Senha Gov:</label>
+                <input type="password" id="senha" name="senha" required>
+                <label for="relacao">Parentesco:</label>
+                <input type="text" id="relacao" name="relacao" required>
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para exibir detalhes do perfil -->
+    <div id="profile-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-details">&times;</span>
+            <h2>Histórico de Exames</h2>
+            <div id="profile-details"></div>
+        </div>
+    </div>
+
+    <script src="JS/main.js"></script>
+</body>
+</html>
