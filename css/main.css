@@ -1,112 +1,197 @@
+/* Cores */
+:root {
+    --color1: #4180ab;
+    --color2: #ffffff;
+    --color3: #8ab3cf;
+    --color4: #bdd1de;
+    --color5: #e4ebf0;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #7FAACD;
 }
 
 nav {
-    background-color: #4C80AB;
-    padding: 1rem;
+    color: var(--color2);
+    background-color: var(--color1);
+    padding: 10px 20px;
+    border-radius: 30px 30px 0 0; /* Parte superior arredondada */
     text-align: left;
+    width: 100%;
 }
 
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+nav img{
+    width: 50px;
+    height: 60px;
+    color: var(--color4);
 }
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-}
 
-main {
-    padding: 2rem;
-    text-align: center;
-}
-
-h1 {
-    color: white;
-}
-
-#profiles-container {
+/* Container Principal */
+.container {
+    background-image: url("imgs/fundo2.png");
+    min-height: 100vh;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.profile-card {
-    border: 1px solid #ccc;
-    background-color: white;
-    border-radius: 10px;
-    padding: 1rem;
-    margin: 1rem;
-    width: 80%;
-    text-align: left;
-    cursor: pointer;
-    position: relative;
+h1 {
+   color: var(--color1);
 }
 
-#add-profile-btn {
-    margin-top: 20px;
-    background-color: #5C99D6;
-    border: none;
+/* Perfis de dependentes */
+/* Botão de adicionar foto de perfil */
+.add-photo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: var(--color4); /* Cor de fundo do botão de adicionar imagem */
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
     cursor: pointer;
+    overflow: hidden;
 }
 
-#add-profile-btn img {
-    width: 30px;
-    height: 30px;
-}
-
-.delete-profile-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
+.add-photo img {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    object-fit: cover;
 }
 
-.modal-content {
-    background-color: white;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
+
+.family-profile {
+    background-color: var(--color4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px; /* Aumenta o espaço interno */
+    margin-bottom: 25px; /* Aumenta o espaçamento entre os quadrados */
+    color: #4f4646;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Aumenta a largura para preencher */
+    height: 80px; /* Ajusta a altura */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
 }
 
-.close, .close-details {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+
+.family-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.family-profile .profile-info {
+    flex-grow: 1;
+    margin-left: 15px;
+    font-size: 18px;
     font-weight: bold;
+}
+
+.family-profile .delete-btn {
+    background-color: var(--color3);
+    color: var(--color2);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.close:hover, .close:focus, .close-details:hover, .close-details:focus {
-    color: black;
+/* Botão de adicionar */
+.add-profile-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--color1);
+    color: var(--color2);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 999;
 }
+
+/* Formulário */
+.form-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color2);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    z-index: 1000;
+    display: none; /* Escondido por padrão */
+}
+.form-container input, .form-container select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid var(--color3);
+}
+
+.form-container button {
+    background-color: var(--color1);
+    color: var(--color2);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Histórico de Exames */
+.profile-details {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color2);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    z-index: 1000;
+    display: none; /* Escondido por padrão */
+}
+
+.profile-details .exam-record {
+    background-color: var(--color4);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.profile-details .exam-record p {
+    margin: 5px 0;
+}
+
+.close-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 18px; /* Diminui o tamanho da fonte */
+    cursor: pointer;
+    position: absolute;
+    top: 10px; /* Ajuste para melhor posicionamento */
+    right: 10px;
+    width: 100%; /* Ajuste o tamanho */
+    height: 30px; /* Ajuste o tamanho */
+    text-align: center;
+    line-height: 30px; /* Centraliza o ícone dentro do botão */
+}
+

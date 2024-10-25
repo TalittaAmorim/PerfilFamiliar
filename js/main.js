@@ -1,99 +1,69 @@
-const addProfileBtn = document.getElementById('add-profile-btn');
-const modal = document.getElementById('profile-modal');
-const closeModal = document.querySelector('.close');
-const form = document.getElementById('profile-form');
-const profilesContainer = document.getElementById('profiles-container');
-const profileDetailsModal = document.getElementById('profile-details-modal');
-const closeDetailsModal = document.querySelector('.close-details');
-const profileDetails = document.getElementById('profile-details');
+let dependentes = [];
 
-// Histórico de exames falsos
-const fakeExams = [
-    { data: "01/10/2024", exame: "Raio-X", gravidade: "Leve", hospital: "Hospital A", batimento: 80, peso: "70kg" },
-    { data: "15/09/2024", exame: "Hemograma", gravidade: "Moderada", hospital: "Hospital B", batimento: 78, peso: "69kg" },
-    { data: "20/08/2024", exame: "Ultrassom", gravidade: "Grave", hospital: "Hospital C", batimento: 85, peso: "68kg" },
-];
+// Atualiza a tela para mostrar ou esconder os dependentes
+function atualizarTela() {
+    const noDependentsMsg = document.querySelector('.no-dependents');
+    const dependentsList = document.querySelector('.dependents-list');
 
-// Abrir modal para adicionar perfil
-addProfileBtn.addEventListener('click', () => {
-    modal.style.display = 'block';
-});
-
-// Fechar modal de adicionar perfil
-closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
-
-// Fechar modal ao clicar fora
-window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
+    // Se não houver dependentes, exibe a mensagem
+    if (dependentes.length === 0) {
+        noDependentsMsg.style.display = 'block';
+        dependentsList.innerHTML = ''; // Limpa a lista de dependentes
+    } else {
+        noDependentsMsg.style.display = 'none';
+        dependentsList.innerHTML = ''; // Limpa antes de adicionar
+        dependentes.forEach((dependente, index) => {
+            dependentsList.innerHTML += `
+                <div class="family-profile" onclick="abrirDetalhes(${index})">
+                    <div class="profile-info">${dependente.nome}</div>
+                    <button class="delete-btn" onclick="removerDependente(${index})">x</button>
+                </div>
+            `;
+        });
     }
-});
-
-// Adicionar perfil
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const cpf = document.getElementById('cpf').value;
-    const senha = document.getElementById('senha').value;
-    const relacao = document.getElementById('relacao').value;
-
-    // Criar card de perfil
-    const profileCard = document.createElement('div');
-    profileCard.classList.add('profile-card');
-    profileCard.innerHTML = `
-        <h3>${relacao}</h3>
-        <p>CPF: ${cpf}</p>
-        <button class="delete-profile-btn">X</button>
-    `;
-    profilesContainer.appendChild(profileCard);
-
-    // Fechar modal
-    modal.style.display = 'none';
-
-    // Resetar formulário
-    form.reset();
-
-    // Evento para exibir o histórico de exames
-    profileCard.addEventListener('click', (event) => {
-        if (!event.target.classList.contains('delete-profile-btn')) {
-            showProfileDetails(cpf);
-        }
-    });
-
-    // Evento para deletar perfil
-    const deleteBtn = profileCard.querySelector('.delete-profile-btn');
-    deleteBtn.addEventListener('click', (event) => {
-        event.stopPropagation(); // Evitar que o clique abra os detalhes do perfil
-        profileCard.remove();
-    });
-});
-
-// Exibir modal com histórico de exames
-function showProfileDetails(cpf) {
-    profileDetails.innerHTML = `<h3>Histórico de Exames - CPF: ${cpf}</h3>`;
-    fakeExams.forEach((exam) => {
-        profileDetails.innerHTML += `
-            <p><strong>Data:</strong> ${exam.data}</p>
-            <p><strong>Exame:</strong> ${exam.exame}</p>
-            <p><strong>Gravidade:</strong> ${exam.gravidade}</p>
-            <p><strong>Hospital:</strong> ${exam.hospital}</p>
-            <p><strong>Batimento Cardíaco:</strong> ${exam.batimento} bpm</p>
-            <p><strong>Peso:</strong> ${exam.peso}</p>
-            <hr>
-        `;
-    });
-    profileDetailsModal.style.display = 'block';
 }
 
-// Fechar modal de detalhes do perfil
-closeDetailsModal.addEventListener('click', () => {
-    profileDetailsModal.style.display = 'none';
+// Adiciona um dependente
+function adicionarDependente() {
+    const nome = document.getElementById('dependente-nome').value;
+    const cpf = document.getElementById('dependente-cpf').value;
+    const senha = document.getElementById('dependente-senha').value;
+    const parentesco = document.getElementById('dependente-parentesco').value;
+
+    if (nome && cpf && senha && parentesco) {
+        dependentes.push({ nome, cpf, senha, parentesco });
+        document.querySelector('.form-container').style.display = 'none'; // Esconde o formulário
+        atualizarTela(); // Atualiza a tela de dependentes
+    } else {
+        alert("Por favor, preencha todos os campos!");
+    }
+}
+
+// Remove um dependente
+function removerDependente(index) {
+    dependentes.splice(index, 1); // Remove o dependente pelo índice
+    atualizarTela(); // Atualiza a tela de dependentes
+}
+
+// Abre o formulário para adicionar um dependente
+document.querySelector('.add-profile-btn').addEventListener('click', function() {
+    document.querySelector('.form-container').style.display = 'block';
 });
 
-// Fechar modal de detalhes ao clicar fora
-window.addEventListener('click', (event) => {
-    if (event.target === profileDetailsModal) {
-        profileDetailsModal.style.display = 'none';
-    }
-});
+// Fecha o formulário
+function fecharFormulario() {
+    document.querySelector('.form-container').style.display = 'none';
+}
+
+// Abre os detalhes do histórico de exames
+function abrirDetalhes(index) {
+    document.querySelector('.profile-details').style.display = 'block';
+}
+
+// Fecha o histórico de exames
+function fecharDetalhes() {
+    document.querySelector('.profile-details').style.display = 'none';
+}
+
+// Inicializa a tela
+window.onload = atualizarTela;
