@@ -48,6 +48,7 @@ function removerDependente(index) {
 // Abre o formulário para adicionar um dependente
 document.querySelector('.add-profile-btn').addEventListener('click', function() {
     document.querySelector('.form-container').style.display = 'block';
+
 });
 
 // Fecha o formulário
